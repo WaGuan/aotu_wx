@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  if msg
+    p.feedback_msg= msg
+  else if err
+    p.feedback_err= err
+    .feedback
+      form.feedback_frm(action="/feedback",method="POST")
+        textarea.feedback_txt(name="feedback_txt",placeholder="请在这里输入您的反馈")
+        button.feedback_btn 提交反馈
+  else
+    .feedback
+      form.feedback_frm(action="/feedback",method="POST")
+        textarea.feedback_txt(name="feedback_txt",placeholder="请在这里输入您的反馈")
+        button.feedback_btn 提交反馈
+

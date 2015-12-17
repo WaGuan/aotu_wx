@@ -1,0 +1,34 @@
+module.exports = {
+  token: '',
+  appid: '',
+  secret: '',
+  menu: {
+    "button": [
+      {
+        "name": "官网", 
+        "type": "view", 
+        "url": "http://aotu.io"
+      }, 
+      {
+        "name": "期刊", 
+        "sub_button": [
+          {
+            "type": "view", 
+            "name": "H5期刊", 
+            "url": "http://aotu.io/cases/mobi/mail.html"
+          }, 
+          {
+            "type": "view", 
+            "name": "前端快报", 
+            "url": "http://aotu.io/cases/mobi/mail.html"
+          }
+        ]
+      }, 
+      {
+        "type": "view", 
+        "name": "联系我们", 
+        "url": "http://aotu.io/about/"
+      }
+    ]
+  }
+}
