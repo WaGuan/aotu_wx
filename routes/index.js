@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
 weixin.token = config.token;
 
 // 监听文本消息
-weixin.textMsg(function(msg) {    
+weixin.textMsg(function(msg) {
 
     log.info("textMsg received: " + JSON.stringify(msg));
 
@@ -102,7 +102,7 @@ weixin.textMsg(function(msg) {
 
     // 模糊匹配
     // JXAL 精选案例
-    if( isKeyInStr(content, 'JXAL') ){
+    if( isKeyInStr(msg.content, 'JXAL') ){
       var url = 'http://aotu.io/cases/mobi/mail.html?vol=';
       var arr = msg.content.split(' ');
       var num = arr.length > 1 ? arr[ 1 ] : 'latest';
