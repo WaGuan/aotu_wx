@@ -28,11 +28,17 @@ weixin.textMsg(function(msg) {
 
     log.info("textMsg received: " + JSON.stringify(msg));
 
-    var resMsg = {};
-    var content = msg.content;
+    // 默认回复语句
+    var resMsg = {
+      fromUserName: msg.toUserName,
+      toUserName: msg.fromUserName,
+      msgType: "text",
+      content: "小凹在不断的成长，欢迎您给出宝贵的意见，有任何疑问请回复 反馈",
+      funcFlag: 0
+    };
 
     // 精确匹配
-    switch (content) {
+    switch (msg.content) {
         case "你好" :
         case "您好" :
             // 返回文本消息
@@ -61,6 +67,7 @@ weixin.textMsg(function(msg) {
                         "    version"
             }
             break;
+
         case "version":
             resMsg = {
                 fromUserName: msg.toUserName,
@@ -76,9 +83,9 @@ weixin.textMsg(function(msg) {
 
             var feedback = [];
             feedback[0] = {
-                title : "意见反馈",
+                title : "有话对小凹说？",
                 description : "请尽情提出您宝贵的意见反馈，小凹定当竭尽所能改进",
-                picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
+                picUrl : "http://jdc.jd.com/h5/case/img/feedback.jpg",
                 url : "/feedback"
             };
 
@@ -90,8 +97,7 @@ weixin.textMsg(function(msg) {
                 articles : feedback,
                 funcFlag : 0
             }   
-            break;  
-
+            break;
     }
 
     // 模糊匹配
