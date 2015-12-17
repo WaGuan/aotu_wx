@@ -159,8 +159,22 @@ weixin.urlMsg(function(msg) {
 
 // 监听事件消息
 weixin.eventMsg(function(msg) {
-    console.log("eventMsg received");
-    console.log(JSON.stringify(msg));
+    log.info( '监听事件：' + JSON.stringify(msg));
+    
+    var resMsg = {};
+
+    // 订阅
+    if(msg.event == "subscribe"){
+      resMsg = {
+        fromUserName: msg.toUserName,
+        toUserName: msg.fromUserName,
+        msgType: "text",
+        content: "欢迎你关注凹凸实验室公众号，请输入 help 进行命令帮助吧！",
+        funcFlag: 0
+      }      
+    }
+    
+    weixin.sendMsg(resMsg);
 });
 
 
