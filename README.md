@@ -16,9 +16,9 @@ npm start
 
 ## 小凹公众号
 
-> 测试功能请扫描下面公众号，敬请提出宝贵意见：
+> 请扫描下面关注凹凸实验室公众号，敬请提出宝贵意见：
 
-![蔡能天的测试公众号](public/images/sky_qrcode.jpeg)
+![凹凸实验室公众号](public/images/qrcode.jpeg)
 
 > 功能列表:
 
