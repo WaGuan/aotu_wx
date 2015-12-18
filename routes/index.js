@@ -165,12 +165,12 @@ weixin.urlMsg(function(msg) {
 
 // 监听事件消息
 weixin.eventMsg(function(msg) {
-    log.info( '监听事件：' + JSON.stringify(msg));
-    
+      
     var resMsg = {};
 
     // 订阅
     if(msg.event == "subscribe"){
+      log.info( '订阅事件：' + JSON.stringify(msg));
       resMsg = {
         fromUserName: msg.toUserName,
         toUserName: msg.fromUserName,
