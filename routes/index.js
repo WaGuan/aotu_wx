@@ -79,6 +79,26 @@ weixin.textMsg(function(msg) {
             };
             break;
 
+        case "freewifi":
+            resMsg = {
+                fromUserName: msg.toUserName,
+                toUserName: msg.fromUserName,
+                msgType: "text",
+                content: "360buy.com"
+                funcFlag: 0
+            };
+            break;
+
+        case "officewifi":
+            resMsg = {
+                fromUserName: msg.toUserName,
+                toUserName: msg.fromUserName,
+                msgType: "text",
+                content: "Ecc.360buy.com"
+                funcFlag: 0
+            };
+            break;
+
         case "反馈" :
 
             var feedback = [];
@@ -142,8 +162,7 @@ weixin.textMsg(function(msg) {
       return ("" + str).replace(/^\s+/gi,'').replace(/\s+$/gi,'').toUpperCase();
     }
 
-
-    log.info('收到文本消息回复： ' + resMsg);
+    log.info('收到文本消息回复： ' + JSON.stringify(resMsg));
     weixin.sendMsg(resMsg);
 });
 
@@ -232,8 +251,6 @@ weixin.eventMsg(function(msg) {
                     "    freewifi \n\n" + 
                     "  OfficeWifi密码：\n" +
                     "    officewifi \n\n" + 
-                    "  意见反馈：\n" +
-                    "    反馈 反馈内容 \n\n" + 
                     "  帮助：\n" + 
                     "    bz/help",
           funcFlag: 0
