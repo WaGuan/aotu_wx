@@ -84,7 +84,7 @@ weixin.textMsg(function(msg) {
                 fromUserName: msg.toUserName,
                 toUserName: msg.fromUserName,
                 msgType: "text",
-                content: "360buy.com"
+                content: "360buy.com",
                 funcFlag: 0
             };
             break;
@@ -94,7 +94,7 @@ weixin.textMsg(function(msg) {
                 fromUserName: msg.toUserName,
                 toUserName: msg.fromUserName,
                 msgType: "text",
-                content: "Ecc.360buy.com"
+                content: "Ecc.360buy.com",
                 funcFlag: 0
             };
             break;

@@ -18,7 +18,7 @@ npm start
 
 > 请扫描下面关注凹凸实验室公众号，敬请提出宝贵意见：
 
-![凹凸实验室公众号](public/images/qrcode.jpeg)
+![凹凸实验室公众号](public/images/qrcode.jpg)
 
 > 功能列表:
 
