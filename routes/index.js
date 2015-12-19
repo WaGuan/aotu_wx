@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var weixin = require('weixin-api');
+var weixin = require('../api/index');
 var config = require('../config/config');
 var log = require('log4js').getLogger('index');
 
@@ -26,7 +26,7 @@ weixin.token = config.token;
 // 监听文本消息
 weixin.textMsg(function(msg) {
 
-    log.info("textMsg received: " + JSON.stringify(msg));
+    log.info("收到文本消息: " + JSON.stringify(msg));
 
     // 默认回复语句
     var resMsg = {
@@ -142,35 +142,42 @@ weixin.textMsg(function(msg) {
       return ("" + str).replace(/^\s+/gi,'').replace(/\s+$/gi,'').toUpperCase();
     }
 
+
+    log.info('收到文本消息回复： ' + resMsg);
     weixin.sendMsg(resMsg);
 });
 
 // 监听图片消息
 weixin.imageMsg(function(msg) {
-    console.log("imageMsg received");
-    console.log(JSON.stringify(msg));
+    log.info("收到图片: " + JSON.stringify(msg));
 });
 
 // 监听位置消息
 weixin.locationMsg(function(msg) {
-    console.log("locationMsg received");
-    console.log(JSON.stringify(msg));
+    log.info("收到位置消息: " + JSON.stringify(msg));
 });
 
 // 监听链接消息
 weixin.urlMsg(function(msg) {
-    console.log("urlMsg received");
-    console.log(JSON.stringify(msg));
+    log.info('收到链接消息：' + JSON.stringify(msg));
 });
 
 // 监听事件消息
 weixin.eventMsg(function(msg) {
-      
-    var resMsg = {};
+
+    log.info('收到事件消息：' + JSON.stringify(msg));
+
+    // content设置为空，表示不回复任何信息给用户
+    var resMsg = {
+      fromUserName: msg.toUserName,
+      toUserName: msg.fromUserName,
+      msgType: "text",
+      content: "",
+      funcFlag: 0
+    };    
 
     // 订阅
-    if(msg.event == "subscribe"){
-      log.info( '订阅事件：' + JSON.stringify(msg));
+    if(msg.event == "subscribe"){    
       resMsg = {
         fromUserName: msg.toUserName,
         toUserName: msg.fromUserName,
@@ -179,7 +186,32 @@ weixin.eventMsg(function(msg) {
         funcFlag: 0
       }      
     }
+
+    // 点击事件
+    if( msg.event == "CLICK" ){
+      // 快捷命令
+      if( msg.eventKey == "quick_order" ){
+        resMsg = {
+          fromUserName: msg.toUserName,
+          toUserName: msg.fromUserName,
+          msgType: "text",
+          content : "亲~~\n" +
+                    "回复命令+关键词获取信息\n" + 
+                    "目前支持的功能如下：\n\n" +
+                    "  FreeWifi密码：\n" +
+                    "    freewifi \n\n" + 
+                    "  OfficeWifi密码：\n" +
+                    "    officewifi \n\n" + 
+                    "  意见反馈：\n" +
+                    "    反馈 反馈内容 \n\n" + 
+                    "  帮助：\n" + 
+                    "    bz/help",
+          funcFlag: 0
+        }
+      }
+    }
     
+    log.info('收到事件消息回复：' + JSON.stringify(msg));
     weixin.sendMsg(resMsg);
 });
 

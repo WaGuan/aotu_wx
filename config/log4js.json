@@ -11,6 +11,13 @@
         },
         {
           "type": "file",
+          "filename": "logs/index.log",
+          "maxLogSize": 10485760,
+          "numBackups": 4,
+          "category": "index"
+        },
+        {
+          "type": "file",
           "filename": "logs/feedback.log",
           "maxLogSize": 10485760,
           "numBackups": 4,

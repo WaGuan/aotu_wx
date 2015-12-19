@@ -1,5 +1,6 @@
 {
   "name": "robot_wx",
+  "description": "凹凸实验室公众号",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -16,6 +17,16 @@
     "log4js": "^0.6.29",
     "request": "^2.67.0",
     "serve-favicon": "~2.3.0",
-    "weixin-api": ">=0.1.6"
+    "sha1": "1.0.1",
+    "xml2js": "0.2.6"
+  },
+  "author": {
+    "name": "SkyCai",
+    "email": "cnt19920613@gmail.com",
+    "url": "http://cnt1992.github.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:o2team/aotu_wx.git"
   }
 }
