@@ -149,17 +149,47 @@ weixin.textMsg(function(msg) {
 
 // 监听图片消息
 weixin.imageMsg(function(msg) {
-    log.info("收到图片: " + JSON.stringify(msg));
+    log.info("收到图片消息: " + JSON.stringify(msg));
+    var resMsg = {
+      fromUserName: msg.toUserName,
+      toUserName: msg.fromUserName,
+      msgType: "text",
+      content: "",
+      funcFlag: 0
+    };
+
+    log.info("收到图片消息回复：" + JSON.stringify(resMsg));
+    weixin.sendMsg(resMsg);
 });
 
 // 监听位置消息
 weixin.locationMsg(function(msg) {
     log.info("收到位置消息: " + JSON.stringify(msg));
+    var resMsg = {
+      fromUserName: msg.toUserName,
+      toUserName: msg.fromUserName,
+      msgType: "text",
+      content: "",
+      funcFlag: 0
+    };
+
+    log.info("收到位置消息回复：" + JSON.stringify(resMsg));
+    weixin.sendMsg(resMsg);
 });
 
 // 监听链接消息
 weixin.urlMsg(function(msg) {
     log.info('收到链接消息：' + JSON.stringify(msg));
+    var resMsg = {
+      fromUserName: msg.toUserName,
+      toUserName: msg.fromUserName,
+      msgType: "text",
+      content: "",
+      funcFlag: 0
+    };
+
+    log.info("收到链接消息回复：" + JSON.stringify(resMsg));
+    weixin.sendMsg(resMsg);
 });
 
 // 监听事件消息
@@ -211,7 +241,7 @@ weixin.eventMsg(function(msg) {
       }
     }
     
-    log.info('收到事件消息回复：' + JSON.stringify(msg));
+    log.info('收到事件消息回复：' + JSON.stringify(resMsg));
     weixin.sendMsg(resMsg);
 });
 
