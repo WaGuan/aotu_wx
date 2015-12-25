@@ -226,14 +226,49 @@ weixin.eventMsg(function(msg) {
     };    
 
     // 订阅
-    if(msg.event == "subscribe"){    
+    if(msg.event == "subscribe"){ 
+      var welcome = [
+        {
+          title: "欢迎关注凹凸实验室",
+          description: "",
+          picUrl : "http://jdc.jd.com/h5/case/img/aotu.jpg",
+          url : "http://aotu.io"
+        },
+        {
+          title: "【译】使用NODE.JS创建命令行脚本工具",
+          description: "",
+          picUrl : "http://jdc.jd.com/h5/case/img/note1.jpg",
+          url : "http://aotu.io/notes/2015/12/23/building-command-line-tools-with-node-js/"
+        },
+        {
+          title: "SAFARI 9.0的新特性",
+          description: "",
+          picUrl : "http://jdc.jd.com/h5/case/img/note2.jpg",
+          url : "http://aotu.io/notes/2015/12/23/new-safari-9/"
+        },
+        {
+          title: "WHAT DOES THE FOO MEAN",
+          description: "",
+          picUrl : "http://jdc.jd.com/h5/case/img/note3.jpg",
+          url : "http://aotu.io/notes/2015/12/18/etymology-of-foobar/"
+        }
+      ];
+     
+      // 返回图文消息
       resMsg = {
-        fromUserName: msg.toUserName,
-        toUserName: msg.fromUserName,
-        msgType: "text",
-        content: "欢迎你关注凹凸实验室公众号，请输入 help 进行命令帮助吧！",
-        funcFlag: 0
-      }      
+          fromUserName : msg.toUserName,
+          toUserName : msg.fromUserName,
+          msgType : "news",
+          articles : welcome,
+          funcFlag : 0
+      }     
+      // resMsg = {
+      //   fromUserName: msg.toUserName,
+      //   toUserName: msg.fromUserName,
+      //   msgType: "text",
+      //   content: "欢迎你关注凹凸实验室公众号，请输入 help 进行命令帮助吧！",
+      //   funcFlag: 0
+      // }      
     }
 
     // 点击事件
