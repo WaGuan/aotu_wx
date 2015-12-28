@@ -1,7 +1,58 @@
 module.exports = {
-  token: '',
-  appid: '',
-  secret: '',
+  wx_config: {
+    aotu: {
+      token: '',
+      appid: '',
+      secret: ''
+    },
+    test: {
+      token: '',
+      appid: '',
+      secret: ''
+    }
+  },    
+  menu_group_staff: {
+    "button": [
+      {
+        "name": "官网", 
+        "type": "view", 
+        "url": "http://aotu.io"
+      }, 
+      {
+        "name": "期刊", 
+        "sub_button": [
+          {
+            "type": "view", 
+            "name": "H5期刊", 
+            "url": "http://aotu.io/cases/mobi/mail.html"
+          }, 
+          {
+            "type": "view", 
+            "name": "前端快报", 
+            "url": "http://aotu.io/cases/mobi/mail.html"
+          }
+        ]
+      }, 
+      {
+        "name": "我的", 
+        "sub_button": [
+          {
+            "type": "click",
+            "name": "快捷命令",
+            "key": "quick_order"
+          }
+        ]
+      }
+    ],
+    "matchrule":{
+      "group_id":"102",
+      "sex":"",
+      "country":"",
+      "province":"",
+      "city":"",
+      "client_platform_type":""
+    }
+  },
   menu: {
     "button": [
       {

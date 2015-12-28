@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var weixin = require('../api/index');
-var config = require('../config/config');
+var weixin = require('../api/weixin');
+
+// Aotu公众号配置信息
+var config = require('../config/config').wx_config.aotu;
+
+// 日志
 var log = require('log4js').getLogger('index');
 
 /* GET home page. */
@@ -10,7 +14,8 @@ router.get('/', function(req, res, next) {
   if (weixin.checkSignature(req)) {
     res.status(200).send(req.query.echostr);
   } else {
-    res.status(200).send('Hello Kugou');
+    //res.status(200).send('Hello Kugou');
+    res.render('page/index');
   }
 });
 
@@ -73,7 +78,7 @@ weixin.textMsg(function(msg) {
                 fromUserName: msg.toUserName,
                 toUserName: msg.fromUserName,
                 msgType: "text",
-                content: "当前版本号：2015年12月14日\n" +
+                content: "当前版本号：2015年12月28日\n" +
                          "版权所有：凹凸实验室",
                 funcFlag: 0
             };
@@ -123,7 +128,7 @@ weixin.textMsg(function(msg) {
     // 模糊匹配
     // JXAL 精选案例
     if( isKeyInStr(msg.content, 'JXAL') ){
-      var url = 'http://aotu.io/cases/mobi/mail.html?vol=';
+      var url = 'http://aotu.io/cases/mobi/maga.html?vol=';
       var arr = msg.content.split(' ');
       var num = arr.length > 1 ? arr[ 1 ] : 'latest';
       url = url + num;

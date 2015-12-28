@@ -1,0 +1,36 @@
+extends ../layout/layout
+
+block content
+  #J_list.list
+    #J_loadingWrap.loading_wrap
+      i.icon_loading
+
+  p#appid(style='display:none')= appid
+  p#noncestr(style='display:none')= data.noncestr
+  p#timestamp(style='display:none')= data.timestamp
+  p#signature(style='display:none')= data.signature
+  script(src='js/zepto.min.js', charset='utf-8')
+  script(src='js/list.js', charset='utf-8')
+  script(src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js', charset='utf-8')
+  script.
+    wx.config({
+      debug: true,
+      appId: $('#appid').html(),
+      noncestr: $('#noncestr').html(),
+      timestamp: $('#timestamp').html(),
+      signature: $('#signature').html(),
+      jsApiList: [
+        'getNetworkType'
+       ]
+    });
+  script.
+    wx.ready(function(){
+      wx.getNetworkType({
+        success: function (res) {
+          alert( '当前网络状态: ' + res.networkType);
+        },
+        fail: function (res) {
+          alert(JSON.stringify(res));
+        }
+      });
+    });
