@@ -10,6 +10,7 @@ var http = require('http');
 var cluster = require('express-cluster');
 var fs = require('fs');
 var log4js = require('log4js');
+var config = require('../config/config');
 
 // 如果没有logs文件夹，则创建
 try {
@@ -29,7 +30,7 @@ cluster(function() {
   /**
    * Get port from environment and store in Express.
    */
-  var port = normalizePort(process.env.PORT || '9189');
+  var port = normalizePort(process.env.PORT || config.port);
   app.set('port', port);  
 
   /**
@@ -99,7 +100,7 @@ cluster(function() {
     var addr = server.address();
     var bind = typeof addr === 'string'
       ? 'pipe ' + addr
-      : 'port ' + addr.port;
+      : 'port ' + addr.port;    
     log.info('Express server Listening on ' + bind + ' and pid is: ' + process.pid);
   }
 

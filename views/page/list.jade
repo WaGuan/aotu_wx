@@ -2,9 +2,22 @@ extends ../layout/layout
 
 block content
   #J_list.list
+
+    each item in result.data
+      a.item(href=item.url,target='_blank')
+        if item.banner_img
+          .item_img
+            img(src=item.banner_img,alt=item.title)
+        .item_info
+          h3.item_tit= item.title
+          p.item_desc= item.summary   
+
     #J_loadingWrap.loading_wrap
       i.icon_loading
 
+
+  p#count(style='display:none')= result.count
+  p#searchurl(style='display:none')= searchurl
   p#appid(style='display:none')= appid
   p#noncestr(style='display:none')= data.noncestr
   p#timestamp(style='display:none')= data.timestamp
@@ -13,24 +26,25 @@ block content
   script(src='js/list.js', charset='utf-8')
   script(src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js', charset='utf-8')
   script.
-    wx.config({
-      debug: true,
-      appId: $('#appid').html(),
-      noncestr: $('#noncestr').html(),
-      timestamp: $('#timestamp').html(),
-      signature: $('#signature').html(),
-      jsApiList: [
-        'getNetworkType'
-       ]
-    });
   script.
-    wx.ready(function(){
-      wx.getNetworkType({
-        success: function (res) {
-          alert( '当前网络状态: ' + res.networkType);
-        },
-        fail: function (res) {
-          alert(JSON.stringify(res));
-        }
-      });
-    });
+    //- wx.config({
+    //-   debug: true,
+    //-   appId: $('#appid').html(),
+    //-   noncestr: $('#noncestr').html(),
+    //-   timestamp: $('#timestamp').html(),
+    //-   signature: $('#signature').html(),
+    //-   jsApiList: [
+    //-     'getNetworkType'
+    //-    ]
+    //- });
+  script.
+    //- wx.ready(function(){
+    //-   wx.getNetworkType({
+    //-     success: function (res) {
+    //-       alert( '当前网络状态: ' + res.networkType);
+    //-     },
+    //-     fail: function (res) {
+    //-       alert(JSON.stringify(res));
+    //-     }
+    //-   });
+    //- });

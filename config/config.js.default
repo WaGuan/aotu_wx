@@ -1,4 +1,6 @@
 module.exports = {
+  port: '9189',
+  search_url: '',
   wx_config: {
     aotu: {
       token: '',
