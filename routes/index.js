@@ -33,6 +33,9 @@ weixin.textMsg(function(msg) {
 
     log.info("收到文本消息: " + JSON.stringify(msg));
 
+    // 信息内容
+    var msgContent = msg.content.replace(/^\s+/gi,'').replace(/\s+$/gi,'');
+
     // 默认回复语句
     var resMsg = {
       fromUserName: msg.toUserName,
@@ -43,7 +46,7 @@ weixin.textMsg(function(msg) {
     };
 
     // 精确匹配
-    switch (msg.content) {
+    switch (msgContent) {
         case "你好" :
         case "您好" :
             // 返回文本消息
@@ -106,28 +109,20 @@ weixin.textMsg(function(msg) {
 
         case "反馈" :
 
-            var feedback = [];
-            feedback[0] = {
-                title : "有话对小凹说？",
-                description : "请尽情提出您宝贵的意见反馈，小凹定当竭尽所能改进",
-                picUrl : "http://jdc.jd.com/h5/case/img/feedback.jpg",
-                url : "/feedback"
-            };
-
-            // 返回图文消息
             resMsg = {
-                fromUserName : msg.toUserName,
-                toUserName : msg.fromUserName,
-                msgType : "news",
-                articles : feedback,
-                funcFlag : 0
-            }   
+                fromUserName: msg.toUserName,
+                toUserName: msg.fromUserName,
+                msgType: "text",
+                content: "请尽情提出宝贵的意见，小凹定当努力改进\n" +
+                         "反馈格式：反馈 反馈内容",
+                funcFlag: 0
+            };
             break;
     }
 
-    // 模糊匹配
-    // JXAL 精选案例
-    if( isKeyInStr(msg.content, 'JXAL') ){
+    // 模糊匹配    
+    if( isKeyInStr(msgContent, 'JXAL') ){
+      // JXAL 精选案例
       var url = 'http://aotu.io/cases/mobi/maga.html?vol=';
       var arr = msg.content.split(' ');
       var num = arr.length > 1 ? arr[ 1 ] : 'latest';
@@ -147,6 +142,67 @@ weixin.textMsg(function(msg) {
           articles : articles,
           funcFlag : 0
       }
+    } else if( msgContent.slice(0,2) == '反馈' ){
+      // 反馈 反馈内容
+      var arr = msgContent.split(' ');
+      resMsg = {
+          fromUserName: msg.toUserName,
+          toUserName: msg.fromUserName,
+          msgType: "text",
+          content: "谢谢，您的反馈小凹已经收到",
+          funcFlag: 0
+      };
+    } else {
+      // 小凹机器人搜索
+      var searchUrl =  require('../config/config').search_url;
+      request
+        .get( searchUrl + msgContent )
+        .end( function(err, resp){
+            var result = JSON.parse(resp.text),
+                data,
+                articles = [];
+            if( result.rtn === 0 ){
+                data = result.data;
+                data.forEach(function(item, i){
+                    if( i > 5 ){
+                        return;
+                    }
+                    if( i === 0 ){
+                        // 大图
+                        articles[i] = {
+                            title : item.title,
+                            description : item.summary,
+                            picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
+                            url : item.url    
+                        }
+                    }else if( i < 5 ){
+                        // 小图
+                        articles.push({
+                            title : item.title,
+                            description : item.summary,
+                            picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
+                            url : item.url
+                        })    
+                    } else {
+                        // 查看所有
+                        articles.push({
+                            title : '查看关键词' + key + '更多的内容',
+                            description : '',
+                            picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
+                            url : 'http://aotu.jd.com/aotu_wx/list?key=' + key
+                        })    
+                    }                  
+                })             
+                // 返回图文消息
+                resMsg = {
+                    fromUserName : msg.toUserName,
+                    toUserName : msg.fromUserName,
+                    msgType : "news",
+                    articles : articles,
+                    funcFlag : 0
+                }
+            }            
+        });
     }
 
     // 判断某个key是否在str里面，若有返回true，若无返回false
