@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     res.status(200).send(req.query.echostr);
   } else {
     //res.status(200).send('Hello Kugou');
-    res.render('page/index');
+    res.render('page/index', {title: '凹凸实验室'});
   }
 });
 

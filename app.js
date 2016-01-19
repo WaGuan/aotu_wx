@@ -11,7 +11,6 @@ var log = log4js.getLogger('app');
 var routes = require('./routes/index');
 var list = require('./routes/list');
 var api = require('./routes/api');
-var feedback = require('./routes/feedback');
 
 var app = express();
 
@@ -20,7 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon-32x32.png')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 
 //log4js
 app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
@@ -33,7 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/list', list);
 app.use('/api', api);
-app.use('/feedback', feedback);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
