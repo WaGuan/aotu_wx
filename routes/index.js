@@ -99,7 +99,7 @@ weixin.textMsg(function(msg) {
       request
         .get( searchUrl + msgContent )
         .end( function(err, resp){
-            var result = JSON.parse(resp.data),
+			var result = JSON.parse(resp.text),
                 data,
                 articles = [];
 
