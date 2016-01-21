@@ -31,7 +31,7 @@
             loadingOffsetTop = self.loadingWrap.offset().top;
         if( Math.abs( winScrollY + winH - loadingOffsetTop ) < 50 ){
           if( self.page <= Math.floor(self.count/self.page) ){
-            self.getData(self.page++);  
+            self.getData(++self.page);  
           }else{
             self.loadingWrap.remove();
           }         
@@ -55,14 +55,22 @@
     },
     getData: function( page ){
       var self = this;
-      var page = page || 0;
+      var page = page || 1;
       $.ajax({
         url: $('#searchurl').html() + '&page=' + page + '&length=10',        
         type: 'GET',
         dataType: 'json',
         success: function( data ){
-          var html = self.renderData(self.tpl, data.data);
-          self.loadingWrap.before(html.join(''));
+          if( data.rtn === 0 ){
+            if( !!data.data.length ){
+              var html = self.renderData(self.tpl, data.data);
+              self.loadingWrap.before(html.join(''));    
+            }else{
+              self.loadingWrap.remove();
+              $(window).off('scroll');
+            }
+          }
+          
         }
       })
     },
