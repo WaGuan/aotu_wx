@@ -1,6 +1,7 @@
 module.exports = {
   port: '9189',
   search_url: '',
+  article_url: '',
   wx_config: {
     aotu: {
       token: '',
@@ -93,12 +94,6 @@ module.exports = {
           }
         ]
       }
-    },
-    test: {
-      token: '',
-      appid: '',
-      secret: '',
-      cached: {}
     }
   }    
 }

@@ -22,7 +22,7 @@ app.set('view engine', 'jade');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 
 //log4js
-app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
+// app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

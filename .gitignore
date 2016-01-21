@@ -5,7 +5,8 @@ node_modules/
 .DS_Store
 
 # config file
-config.js
+config/config.js
+config/keyword.js
 
 # logs
 logs/
