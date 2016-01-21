@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var weixin = require('../api/weixin');
-
+var request = require('superagent');
 // Aotu公众号配置信息
 var config = require('../config/config').wx_config.aotu;
 
@@ -44,6 +44,7 @@ weixin.textMsg(function(msg) {
       content: "小凹在不断的成长，欢迎您给出宝贵的意见，有任何疑问请回复 反馈",
       funcFlag: 0
     };
+	var flag = 0;
 
     // 精确匹配
     switch (msgContent) {
@@ -57,6 +58,7 @@ weixin.textMsg(function(msg) {
                 content : "您好，这里是凹凸实验室，更多精彩内容请回复 help 或者 bz",
                 funcFlag : 0
             };
+			flag = 1;
             break;
 
         case "help" :
@@ -73,7 +75,8 @@ weixin.textMsg(function(msg) {
                         "    JXAL 2\n" + 
                         "  获取当前公众号版本号：\n" +
                         "    version"
-            }
+            };
+			flag = 1;
             break;
 
         case "version":
@@ -85,6 +88,7 @@ weixin.textMsg(function(msg) {
                          "版权所有：凹凸实验室",
                 funcFlag: 0
             };
+			flag = 1;
             break;
 
         case "freewifi":
@@ -95,6 +99,7 @@ weixin.textMsg(function(msg) {
                 content: "360buy.com",
                 funcFlag: 0
             };
+			flag = 1;
             break;
 
         case "officewifi":
@@ -105,6 +110,7 @@ weixin.textMsg(function(msg) {
                 content: "Ecc.360buy.com",
                 funcFlag: 0
             };
+			flag = 1;
             break;
 
         case "反馈" :
@@ -117,6 +123,7 @@ weixin.textMsg(function(msg) {
                          "反馈格式：反馈 反馈内容",
                 funcFlag: 0
             };
+			flag = 1;
             break;
     }
 
@@ -142,6 +149,7 @@ weixin.textMsg(function(msg) {
           articles : articles,
           funcFlag : 0
       }
+	  flag = 1;
     } else if( msgContent.slice(0,2) == '反馈' ){
       // 反馈 反馈内容
       var arr = msgContent.split(' ');
@@ -152,9 +160,11 @@ weixin.textMsg(function(msg) {
           content: "谢谢，您的反馈小凹已经收到",
           funcFlag: 0
       };
+	  flag = 1;
     } else {
       // 小凹机器人搜索
       var searchUrl =  require('../config/config').search_url;
+      log.info('小凹机器人搜索：',searchUrl+msgContent);
       request
         .get( searchUrl + msgContent )
         .end( function(err, resp){
@@ -164,7 +174,7 @@ weixin.textMsg(function(msg) {
             if( result.rtn === 0 ){
                 data = result.data;
                 data.forEach(function(item, i){
-                    if( i > 5 ){
+                    if( i > 4 ){
                         return;
                     }
                     if( i === 0 ){
@@ -175,7 +185,7 @@ weixin.textMsg(function(msg) {
                             picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
                             url : item.url    
                         }
-                    }else if( i < 5 ){
+                    }else if( i < 4 ){
                         // 小图
                         articles.push({
                             title : item.title,
@@ -186,14 +196,15 @@ weixin.textMsg(function(msg) {
                     } else {
                         // 查看所有
                         articles.push({
-                            title : '查看关键词' + key + '更多的内容',
+                            title : '查看关键词' + msgContent + '更多的内容',
                             description : '',
                             picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
-                            url : 'http://aotu.jd.com/aotu_wx/list?key=' + key
+                            url : 'http://aotu.jd.com/aotu_wx/list?key=' + msgContent
                         })    
                     }                  
-                })             
+                });             
                 // 返回图文消息
+				if( data.length ){
                 resMsg = {
                     fromUserName : msg.toUserName,
                     toUserName : msg.fromUserName,
@@ -201,6 +212,18 @@ weixin.textMsg(function(msg) {
                     articles : articles,
                     funcFlag : 0
                 }
+				}else{
+resMsg = {
+      fromUserName: msg.toUserName,
+      toUserName: msg.fromUserName,
+      msgType: "text",
+      content: "小凹在不断的成长，欢迎您给出宝贵的意见，有任何疑问请回复 反馈",
+      funcFlag: 0
+    };
+
+																																																																					  }
+    			log.info('收到文本消息回复： ' + JSON.stringify(resMsg));
+				weixin.sendMsg(resMsg);
             }            
         });
     }
@@ -224,7 +247,8 @@ weixin.textMsg(function(msg) {
     }
 
     log.info('收到文本消息回复： ' + JSON.stringify(resMsg));
-    weixin.sendMsg(resMsg);
+	if( flag == 1 ){
+    	weixin.sendMsg(resMsg);																													   }
 });
 
 // 监听图片消息
