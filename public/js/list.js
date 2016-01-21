@@ -57,7 +57,8 @@
       var self = this;
       var page = page || 0;
       $.ajax({
-        url: $('#searchurl').html() + '&page=' + page + '&length=10',        
+        //url: $('#searchurl').html() + '&page=' + page + '&length=10',        
+        url: $('#searchurl').html().replace('localhost','aotu.jd.com') + '&page=' + page + '&length=10',        
         type: 'GET',
         dataType: 'json',
         success: function( data ){
