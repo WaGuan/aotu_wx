@@ -106,31 +106,20 @@ weixin.textMsg(function(msg) {
             if( result.rtn === 0 ){
                 data = result.data;
                 data.forEach(function(item, i){
-                    if( i > 4 ){
-                        return;
-                    }
-                    if( i === 0 ){
-                        // 大图
-                        articles[i] = {
-                            title : item.title,
-                            description : item.summary,
-                            picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
-                            url : item.url    
-                        }
-                    }else if( i < 4 ){
-                        // 小图
-                        articles.push({
-                            title : item.title,
-                            description : item.summary,
-                            picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
-                            url : item.url
-                        })    
+                    if( i > 4 ) return;
+                    if( i < 4 ){
+                      articles[i] = {
+                        title : item.title,
+                        description : item.summary,
+                        picUrl : getImageURL(item, i),
+                        url : item.url    
+                      }
                     } else {
                         // 查看所有
                         articles.push({
                             title : '查看关键词' + key + '更多的内容',
                             description : '',
-                            picUrl : "http://jdc.jd.com/h5/case/img/h5case.jpg",
+                            picUrl : "http://jdc.jd.com/h5/case/img/share_2.0.png",
                             url : 'http://aotu.jd.com/aotu_wx/list?key=' + key
                         })    
                     }                  
@@ -169,6 +158,22 @@ weixin.textMsg(function(msg) {
     // 去掉前后空格并且转换成大写
     function trim( str ){
       return ("" + str).replace(/^\s+/gi,'').replace(/\s+$/gi,'').toUpperCase();
+    }
+
+    // 获取图片URL
+    function getImageURL( item, i ){
+      var prefix = 'http://aotu.jd.com/aotu_wx/article_imgs/thumbs/';
+      var image = item.images;
+      var size = i == 0 ? '900x500' : '200x200';
+      var imageurl = '';
+      
+      if( !image ){
+        // 无图片
+        imageurl = i == 0 ? 'http://jdc.jd.com/h5/case/img/aotu.jpg' : 'http://jdc.jd.com/h5/case/img/share_2.0.png';        
+      } else {        
+        imageurl = prefix + size + image;
+      }
+      return imageurl;
     }
 
     if( flag === true ){
