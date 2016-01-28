@@ -48,7 +48,7 @@ weixin.textMsg(function(msg) {
       content: "小凹在不断的成长，欢迎您给出宝贵的意见，有任何疑问请回复 help 或 bz",
       funcFlag: 0
     };
-   
+
     if( !!keyword.exactKey[ msgContent ] ){
       // 精确匹配
       resMsg = {
@@ -164,7 +164,7 @@ weixin.textMsg(function(msg) {
     function getImageURL( item, i ){
       var prefix = 'http://aotu.jd.com/aotu_wx/article_imgs/thumbs/';
       var image = item.images;
-      var size = i == 0 ? '900x500' : '200x200';
+      var size = i == 0 ? '900x500/' : '200x200/';
       var imageurl = '';
       
       if( !image ){
