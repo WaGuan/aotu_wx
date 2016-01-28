@@ -111,7 +111,7 @@ weixin.textMsg(function(msg) {
                       articles[i] = {
                         title : item.title,
                         description : item.summary,
-                        picUrl : getImageURL(item, i),
+                        picUrl : getImageURL(item, i, key),
                         url : item.url    
                       }
                     } else {
@@ -161,7 +161,7 @@ weixin.textMsg(function(msg) {
     }
 
     // 获取图片URL
-    function getImageURL( item, i ){
+    function getImageURL( item, i, key ){
       var prefix = 'http://aotu.jd.com/aotu_wx/article_imgs/thumbs/';
       var image = item.images;
       var size = i == 0 ? '900x500/' : '200x200/';
@@ -169,7 +169,8 @@ weixin.textMsg(function(msg) {
       
       if( !image ){
         // 无图片
-        imageurl = i == 0 ? 'http://jdc.jd.com/h5/case/img/aotu.jpg' : 'http://jdc.jd.com/h5/case/img/share_2.0.png';        
+        prefix = 'http://loremflickr.com/';
+        imageurl = prefix + size + key;
       } else {        
         imageurl = prefix + size + image;
       }
