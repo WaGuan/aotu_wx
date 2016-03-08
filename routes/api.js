@@ -18,6 +18,9 @@ var log = require('log4js').getLogger('api');
 // 工具类
 var util = require('../util/util');
 
+// JSSDK
+var jssdk = require('../api/jssdk');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.status(200).send('api page');
@@ -244,6 +247,24 @@ router.get('/uploadnews', function(req, res, next){
       });
     }
   });
+});
+
+// JSSDK
+router.get('/jssdk', function(req, res, next){
+  var url = req.query.url || '';
+  if( !!url ){
+    new jssdk( url, function( data ){
+      res.status(200).send({
+        url: data.url,
+        noncestr: data.noncestr,
+        timestamp: data.timestamp,
+        sinature: data.sinature,
+        appid: config.wx_config.aotu.appid
+      });
+    });
+  }else{
+    res.status(200).send('请传入url');
+  }
 });
 
 module.exports = router;
