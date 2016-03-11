@@ -63,7 +63,7 @@ JSSDK.prototype.getTicket = function( _callback ){
 
 
 JSSDK.prototype.calcSignature = function( ticket, noncestr, timestamp, url ){
-  var str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + 
+  var str = 'jsapi_ticket=' + ticket.ticket + '&noncestr=' + noncestr + 
             '&timestamp=' + timestamp + '&url=' + url;
   return sha1( str );
 }
