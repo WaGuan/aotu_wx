@@ -16,10 +16,6 @@
       ].join('');
       this.dealScroll();
     },
-    toggleLoading: function(){
-      var loadingWrap = this.loadingWrap;
-      loadingWrap.hasClass('hide') ? loadingWrap.removeClass('hide') : loadingWrap.addClass('hide');  
-    },
     dealScroll: function(){
       var self = this,
           win = $(window),
@@ -29,8 +25,10 @@
       win.on('scroll', self.debounce(function(e){        
         var winScrollY = window.scrollY,
             loadingOffsetTop = self.loadingWrap.offset().top;
+        console.log(loadingOffsetTop);
         if( Math.abs( winScrollY + winH - loadingOffsetTop ) < 50 ){
           if( self.page <= Math.floor(self.count/self.page) ){
+            self.loadingWrap.css({'opacity':1});
             self.getData(++self.page);  
           }else{
             self.loadingWrap.remove();

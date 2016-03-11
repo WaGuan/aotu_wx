@@ -258,7 +258,7 @@ router.get('/jssdk', function(req, res, next){
         url: data.url,
         noncestr: data.noncestr,
         timestamp: data.timestamp,
-        sinature: data.sinature,
+        signature: data.signature,
         appid: config.wx_config.aotu.appid
       });
     });
