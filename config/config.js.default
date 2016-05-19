@@ -1,99 +1,110 @@
 module.exports = {
   port: '9189',
-  search_url: '',
-  article_url: '',
+  search_url: 'http://aotu.jd.com/aotu_search/?q=',
+  article_url: 'http://localhost:5555/?source=true',
   wx_config: {
     aotu: {
-      token: '',
-      appid: '',
-      secret: '',
+      token: '103b7269da8f6f9c2ace01003dceb066',
+      appid: 'wx3d81e7cee2a548f3',
+      secret: '47c21672322c195cd497c6839be76f25',
       cached: {},
       menu_group_staff: {
         "button": [
-          {
-            "name": "官网", 
-            "type": "view", 
-            "url": "http://aotu.io"
-          }, 
-          {
-            "name": "期刊", 
-            "sub_button": [
-              {
+            {
                 "type": "view", 
-                "name": "H5期刊", 
-                "url": "http://aotu.io/cases/mobi/mail.html"
-              }, 
-              {
-                "type": "view", 
-                "name": "前端快报", 
-                "url": "http://aotu.io/cases/mobi/mail.html"
-              }
-            ]
-          }, 
-          {
-            "name": "我的", 
-            "sub_button": [
-              {
-                "type": "click",
-                "name": "快捷命令",
-                "key": "quick_order"
-              }
-            ]
-          }
-        ],
-        "matchrule":{
-          "group_id":"102",
-          "sex":"",
-          "country":"",
-          "province":"",
-          "city":"",
-          "client_platform_type":""
-        }
+                "name": "官网", 
+                "url": "http://aotu.io", 
+                "sub_button": [ ]
+            }, 
+            {
+                "name": "期刊", 
+                "sub_button": [
+                    {
+                        "type": "view", 
+                        "name": "拇指期刊", 
+                        "url": "http://aotu.io/cases/mobi/maga.html", 
+                        "sub_button": [ ]
+                    }, 
+                    {
+                        "type": "view", 
+                        "name": "前端快报", 
+                        "url": "http://aotu.jd.com/express/latest/?source=weiwin", 
+                        "sub_button": [ ]
+                    }
+                ]
+            }, 
+            {
+                "name": "我的", 
+                "sub_button": [
+                    {
+                        "type": "click", 
+                        "name": "快捷命令", 
+                        "key": "quick_order", 
+                        "sub_button": [ ]
+                    }
+                ]
+            }
+        ], 
+        "matchrule": {
+            "group_id": "102"
+        }, 
       },
       menu: {
         "button": [
-          {
-            "name": "官网",
-            "sub_button": [
-                {
-                    "type": "view",
-                    "name": "博客",
-                    "url": "http://aotu.io",
-                    "sub_button": []
-                },
-                {
-                    "type": "view",
-                    "name": "Athena",
-                    "url": "http://aotu.io/athena/",
-                    "sub_button": []
-                },
-                {
-                    "type": "view",
-                    "name": "前端规范",
-                    "url": "http://aotu.io/guide/",
-                    "sub_button": []
-                }
-            ]
-          },
-          {
-              "name": "期刊",
-              "sub_button": [
-                  {
-                      "type": "view",
-                      "name": "H5期刊",
-                      "url": "http://aotu.io/cases/mobi/maga.html?vol=latest",
-                      "sub_button": []
-                  }
-              ]
-          },
-          {
-              "type": "view",
-              "name": "联系我们",
-              "url": "http://aotu.io/about/",
-              "sub_button": []
-          }
+            {
+                "name": "官网", 
+                "sub_button": [
+                    {
+                        "type": "view", 
+                        "name": "博客", 
+                        "url": "http://aotu.io", 
+                        "sub_button": [ ]
+                    }, 
+                    {
+                        "type": "view", 
+                        "name": "Athena", 
+                        "url": "http://aotu.io/athena/", 
+                        "sub_button": [ ]
+                    }, 
+                    {
+                        "type": "view", 
+                        "name": "前端规范", 
+                        "url": "http://aotu.io/guide/", 
+                        "sub_button": [ ]
+                    }
+                ]
+            }, 
+            {
+                "name": "期刊", 
+                "sub_button": [
+                    {
+                        "type": "view", 
+                        "name": "拇指期刊", 
+                        "url": "http://aotu.io/cases/mobi/maga.html", 
+                        "sub_button": [ ]
+                    }, 
+                    {
+                        "type": "view", 
+                        "name": "前端快报", 
+                        "url": "http://aotu.jd.com/express/latest/?source=weiwin", 
+                        "sub_button": [ ]
+                    }
+                ]
+            }, 
+            {
+                "type": "view", 
+                "name": "联系我们", 
+                "url": "http://aotu.io/about/", 
+                "sub_button": [ ]
+            }
         ]
       }
+    },
+    test: {
+      token: 'skycai',
+      appid: 'wxeaeebfc46b8b3522',
+      secret: 'cdedf3b2cb40e3e3a124747837a109ba',
+      cached: {}
     }
   }    
 }
