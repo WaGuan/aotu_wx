@@ -11,3 +11,6 @@ config/keyword.js
 # logs
 logs/
 *.log
+
+#article images
+public/article_imgs/

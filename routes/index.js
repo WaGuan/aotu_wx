@@ -111,7 +111,7 @@ weixin.textMsg(function(msg) {
                       articles[i] = {
                         title : item.title,
                         description : item.summary,
-                        picUrl : getImageURL(item, i, key),
+                        picUrl : getImageURL(item, i,msgContent),
                         url : item.url    
                       }
                     } else {
@@ -119,7 +119,7 @@ weixin.textMsg(function(msg) {
                         articles.push({
                             title : '查看关键词' + msgContent + '更多的内容',
                             description : '',
-                            picUrl : "http://jdc.jd.com/h5/case/img/share_2.0.png",
+							picUrl: "http://loremflickr.com/200/200/" + msgContent,
                             url : 'http://aotu.jd.com/aotu_wx/list?key=' + msgContent
                         })    
                     }                  
@@ -170,7 +170,8 @@ weixin.textMsg(function(msg) {
       if( !image ){
         // 无图片
         prefix = 'http://loremflickr.com/';
-        imageurl = prefix + size + key;
+		size = i == 0 ? '900/500/':'200/200/';
+        imageurl = prefix + size + key + '?random=' + i;
       } else {        
         imageurl = prefix + size + image;
       }

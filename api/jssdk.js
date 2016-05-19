@@ -35,17 +35,20 @@ JSSDK.prototype.getTicket = function( _callback ){
       var url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' + access_token + '&type=jsapi'
 
       if( config.cached.jsapi_ticket && config.cached.jsapi_ticket.timestamp ){
+	  	console.log(config.cached.jsapi_ticket, '获取jsapi');
         var ts = config.cached.jsapi_ticket.timestamp;
         if( util.isExpireTimeOut( ts ) ){
+			log.info('request jsapi', '重新获取');
           request.get({
             url: url
           }, function( error, httpResponse, body ){ 
             config.cached.jsapi_ticket = JSON.parse( body );
             config.cached.jsapi_ticket.timestamp = util.createTimeStamp();
+			log.info(config.cached, '重新获取');
             _callback( config.cached.jsapi_ticket );
           });    
         }else{
-          console.log(config.cached.jsapi_ticket,'从缓存中获取jsapi_ticket');
+          log.info(config.cached.jsapi_ticket,'从缓存中获取jsapi_ticket');
           _callback( config.cached.jsapi_ticket );
         }
       }else{
