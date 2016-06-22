@@ -163,17 +163,17 @@ weixin.textMsg(function(msg) {
     // 获取图片URL
     function getImageURL( item, i, key ){
       var prefix = 'http://aotu.jd.com/aotu_wx/article_imgs/thumbs/';
-      var image = item.images;
-      var size = i == 0 ? '900x500/' : '200x200/';
+      var images = item.images;
+      var size = i === 0 ? '900x500/' : '200x200/';
       var imageurl = '';
       
-      if( !image ){
+      if( !images || images.length ){
         // 无图片
         prefix = 'http://loremflickr.com/';
-		size = i == 0 ? '900/500/':'200/200/';
-        imageurl = prefix + size + key + '?random=' + i;
-      } else {        
-        imageurl = prefix + size + image;
+        imageurl = prefix + size + key;
+      } else {
+        var image = images[0];
+        imageurl = prefix + size + image.name;
       }
       return imageurl;
     }
